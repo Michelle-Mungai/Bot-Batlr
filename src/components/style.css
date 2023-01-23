@@ -15,6 +15,7 @@ div #army{
 }
 div #armys{
     background-color: lightcoral;
+    justify-content: center;
     color: black;
 }
 div #bott{

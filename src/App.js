@@ -1,10 +1,11 @@
 import React from 'react';
-import Home from './Home';
+import BotsView from './components/BotsView'
 
 const App = () => {
-  return (
-       <Home />
-    
+  return (  
+    <div className='App'>
+      <BotsView/>
+    </div>
      
   );
 };

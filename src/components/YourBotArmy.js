@@ -1,46 +1,21 @@
-import React, { useState } from 'react';
+import React from "react";
+import BotCard from "./BotCard";
 
-const YourBotArmy = ({ bots, enlistBot, releaseBot, dischargeBot }) => {
-  const [army, setArmy] = useState([]);
-
-  const handleEnlist = bot => {
-    enlistBot(bot);
-    setArmy([...army, bot]);
-  };
-
-  const handleRelease = bot => {
-    releaseBot(bot);
-    setArmy(army.filter(b => b !== bot));
-  };
-
-  const handleDischarge = bot => {
-    dischargeBot(bot);
-    setArmy(army.filter(b => b !== bot));
-  };
+function YourBotArmy({ collection, clickHandler, handeleDelete }) {
+ 
 
   return (
-    <div>
-      <h2>Your Bot Army</h2>
-      <ul>
-        {army.map(bot => (
-          <li key={bot.id}>
-            {bot.name}
-            <button onClick={() => handleRelease(bot)}>Release</button>
-            <button onClick={() => handleDischarge(bot)}>Discharge</button>
-          </li>
-        ))}
-      </ul>
-      <h3>Available Bots</h3>
-      <ul>
-        {bots.map(bot => (
-          <li key={bot.id}>
-            {bot.name}
-            <button onClick={() => handleEnlist(bot)}>Enlist</button>
-          </li>
-        ))}
-      </ul>
+    <div className="ui segment bot-army" id="armys">
+      <div className="ui five column grid" id="army">
+        {"Click on a Bot to remove it from your army."}
+        <div className="row bot-army-row">
+          {collection.map((bot) => (
+            <BotCard key={bot.id} bot={bot} clickHandler={clickHandler} handleDelete={handeleDelete} />
+          ))}
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default YourBotArmy;

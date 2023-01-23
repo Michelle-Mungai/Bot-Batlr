@@ -1,63 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import BotSpecs from './BotSpecs';
+import React from "react";
+import BotCard from "./BotCard";
 
-const BotCollection = ({ addToArmy, dischargeFromArmy }) => {
-  const [bots, setBots] = useState([]);
-  const [selectedBot, setSelectedBot] = useState({});
-  const [showSpecs, setShowSpecs] = useState(false);
-
-  useEffect(() => {
-    fetch('http://localhost:3000/bots')
-      .then(res => res.json())
-      .then(data => setBots(data))
-      .catch(err => console.log(err));
-  }, []);
-
-  const handleSelect = bot => {
-    setSelectedBot(bot);
-    setShowSpecs(true);
-  };
-
-  const handleAddToArmy = () => {
-    addToArmy(selectedBot);
-    setSelectedBot({});
-    setShowSpecs(false);
-  }
-
-  const handleDischarge = async (id) => {
-    try {
-      await fetch(`http://localhost:3000/bots/${id}`, { method: 'DELETE' });
-      dischargeFromArmy(id);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+function BotCollection({ collection, clickHandler, handleDelete }) {
 
   return (
-    <div>
-      {!showSpecs ? (
-        <div>
-          <h2>Bot Collection</h2>
-          <ul>
-            {bots.map(bot => (
-              <li key={bot.id} onClick={() => handleSelect(bot)}>
-                {bot.name}
-                <button onClick={() => handleDischarge(bot.id)}>X</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ) : (
-        
-        <BotSpecs
-          bot={selectedBot}
-          onBack={() => setShowSpecs(false)}
-          onAdd={handleAddToArmy}
-          onDischarge={() => handleDischarge(selectedBot.id)}
-        />
-      )}
+    <div className="ui four column grid" id="bot">
+      {"Cick on a bot to add it to your army."}
+      <div className="row">
+        {collection.map((bot) => (
+          <BotCard key={bot.id} bot={bot} clickHandler={clickHandler} handleDelete={handleDelete} />
+        ))}
+      </div>
     </div>
   );
-};
+}
 
 export default BotCollection;
