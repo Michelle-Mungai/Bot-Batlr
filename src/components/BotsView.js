@@ -15,13 +15,13 @@ function BotsView() {
     setArmy((army) => army.filter((it) => it.id !== bot.id));
   }
   useEffect(() => {
-    fetch("http://localhost:8000/bots")
+    fetch("https://api.npoint.io/3d2d9b509be9a4053a38/bots")
       .then((res) => res.json())
       .then((data) => setBots(data));
   }, []);
 
   function handleDelete(bot) {
-    fetch(`http://localhost:8000/bots/${bot.id}`, {
+    fetch(`https://api.npoint.io/3d2d9b509be9a4053a38/bots/${bot.id}`, {
       method: "DELETE",
     }).then(() => {
       setBots((bots) => bots.filter((it) => it.id !== bot.id));
